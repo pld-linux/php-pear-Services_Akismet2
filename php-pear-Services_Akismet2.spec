@@ -1,19 +1,17 @@
 %include	/usr/lib/rpm/macros.php
-%define		_class		Services
-%define		_subclass	Akismet2
 %define		_status		alpha
 %define		_pearname	Services_Akismet2
 Summary:	%{_pearname} - PHP client for the Akismet REST API
 Summary(pl.UTF-8):	%{_pearname} - Klient PHP do API REST Akismet
 Name:		php-pear-%{_pearname}
 Version:	0.3.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages/PHP
 Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tgz
 # Source0-md5:	898089999dcf97c1ff1e2c13a5c3a2f0
 URL:		http://pear.php.net/package/Services_Akismet2/
-BuildRequires:	php-pear-PEAR
+BuildRequires:	php-pear-PEAR >= 1:1.4.0
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 Requires:	php-pear
 Requires:	php-pear-HTTP_Request2 >= 0.1.0
@@ -59,9 +57,9 @@ Ta klasa ma w PEAR status: %{_status}.
 Summary:	Tests for PEAR::%{_pearname}
 Summary(pl.UTF-8):	Testy dla PEAR::%{_pearname}
 Group:		Development/Languages/PHP
-AutoReq:	no
 Requires:	%{name} = %{version}-%{release}
 AutoProv:	no
+AutoReq:	no
 
 %description tests
 Tests for PEAR::%{_pearname}.
