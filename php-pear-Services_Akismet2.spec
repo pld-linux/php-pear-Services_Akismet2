@@ -4,12 +4,12 @@
 Summary:	%{_pearname} - PHP client for the Akismet REST API
 Summary(pl.UTF-8):	%{_pearname} - Klient PHP do API REST Akismet
 Name:		php-pear-%{_pearname}
-Version:	0.3.0
-Release:	2
+Version:	0.3.1
+Release:	1
 License:	MIT
 Group:		Development/Languages/PHP
 Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tgz
-# Source0-md5:	898089999dcf97c1ff1e2c13a5c3a2f0
+# Source0-md5:	590dc2acb0fd4d9876011381b0ed56cf
 URL:		http://pear.php.net/package/Services_Akismet2/
 BuildRequires:	php-pear-PEAR >= 1:1.4.0
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
@@ -17,6 +17,7 @@ BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	php-pear
 Requires:	php-pear-HTTP_Request2 >= 0.1.0
 Requires:	php-pear-PEAR >= 1.4.0
+Obsoletes:	php-pear-Services_Akismet2-tests
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -54,27 +55,19 @@ której autorem jest Bret Kuhns.
 
 Ta klasa ma w PEAR status: %{_status}.
 
-%package tests
-Summary:	Tests for PEAR::%{_pearname}
-Summary(pl.UTF-8):	Testy dla PEAR::%{_pearname}
-Group:		Development/Languages/PHP
-Requires:	%{name} = %{version}-%{release}
-AutoProv:	no
-AutoReq:	no
-
-%description tests
-Tests for PEAR::%{_pearname}.
-
-%description tests -l pl.UTF-8
-Testy dla PEAR::%{_pearname}.
-
 %prep
 %pear_package_setup
+
+# packager util
+rm .%{php_pear_dir}/package.php
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{php_pear_dir}
 %pear_package_install
+
+# tests should not be packaged
+%{__rm} -r $RPM_BUILD_ROOT%{php_pear_dir}/tests/%{_pearname}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,9 +76,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc install.log
 %{php_pear_dir}/.registry/*.reg
-%{php_pear_dir}/Services/Akismet2
 %{php_pear_dir}/Services/Akismet2.php
-
-%files tests
-%defattr(644,root,root,755)
-%{php_pear_dir}/tests/Services_Akismet2
+%{php_pear_dir}/Services/Akismet2
