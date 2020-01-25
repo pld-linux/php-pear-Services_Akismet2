@@ -1,4 +1,3 @@
-%include	/usr/lib/rpm/macros.php
 %define		_status		alpha
 %define		_pearname	Services_Akismet2
 Summary:	%{_pearname} - PHP client for the Akismet REST API
